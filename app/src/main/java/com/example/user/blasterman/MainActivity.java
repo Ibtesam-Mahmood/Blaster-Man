@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ConstraintLayout levelContainer;
 
+    private int[][] level;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     2 - key
     3 - enemy
     4 - blaster man
-    5 - door
+    5 - door closed
+    6 - door open
      */
     private int[][] generateLevel(){
 
@@ -91,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
     2 - yellow - key
     3 - green - enemy
     4 - cyan - blaster man
-    5 - magenta - door
+    5 - magenta - door closed
+    6 - white - door open
      */
     private void printLevel(int[][] level){
 
@@ -113,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
                     block.setColor(Color.CYAN);
                 else if(blockType == 5)
                     block.setColor(Color.MAGENTA);
+                else if(blockType == 6)
+                    block.setColor(Color.WHITE);
                 else //Goes to the next loop if the block isn't defined
                     continue;
 
@@ -125,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
     public void generateButton(View view){
 
         levelContainer.removeAllViews();
-        printLevel( generateLevel() ); //Prints the generated level
+        level = generateLevel();
+        printLevel(level); //Prints the generated level
 
     }
 
