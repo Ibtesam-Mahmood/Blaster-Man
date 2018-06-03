@@ -36,9 +36,18 @@ public class MainActivity extends AppCompatActivity {
 
         level =  new int[3][width];
 
-        for (int i = 0; i < width; i++){
 
-            level[2][i] = 1; //Sets the base blocks
+        level[2][0] = 1; // Ensures that there is a first block
+
+        // Sets the base blocks
+        for (int i = 1; i < width; i++){
+
+            double randomizer = Math.random();
+
+            if(randomizer > 0.25)
+                level[2][i] = 1;
+            else
+                level[2][i] = 0;
 
         }
 
@@ -74,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void generateButton(View view){
 
+        levelContainer.removeAllViews();
         printLevel( generateLevel() ); //Prints the generated level
 
     }
