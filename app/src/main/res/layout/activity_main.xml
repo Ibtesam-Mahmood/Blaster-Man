@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.user.blasterman.MainActivity"
-    android:id="@+id/screen">
+    android:id="@+id/screen"
+    android:background="@color/black">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="558dp"
