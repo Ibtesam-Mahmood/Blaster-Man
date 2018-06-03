@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         level[1][width-1] = 5; //Generates door
 
         // Sets the base blocks and holes
-        for (int i = 1; i <= width; i++){
+        for (int i = 1; i < width - 1; i++){
 
             double randomizer = Math.random();
 
