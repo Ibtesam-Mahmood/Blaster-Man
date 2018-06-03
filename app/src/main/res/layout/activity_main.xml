@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:onClick="move"
+        android:onClick="moveButton"
         android:text="Move"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:onClick="jump"
+        android:onClick="jumpButton"
         android:text="Jump"
         app:layout_constraintStart_toEndOf="@+id/move"
         app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:onClick="jumpOver"
+        android:onClick="jumpOverButton"
         android:text="Jump Over"
         app:layout_constraintStart_toEndOf="@+id/jump"
         app:layout_constraintTop_toTopOf="parent" />

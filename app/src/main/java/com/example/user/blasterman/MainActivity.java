@@ -159,6 +159,10 @@ public class MainActivity extends AppCompatActivity {
 
     //manages game interactions
     private void updateGame(){
+        //sets the door to open if all keys are collected
+        if(keys == 0)
+            level[1][size-1] = 6;
+
         if(level[2][characterIndex] == 0) //If the player fell into a hole
             gameOver(false);
 
@@ -171,15 +175,67 @@ public class MainActivity extends AppCompatActivity {
         if(level[1][characterIndex] == 6) //Player came to the open door
             gameOver(true);
 
-        //sets the door to open if all keys are collected
-        if(keys == 0)
-            level[1][size-1] = 6;
     }
 
     //Clears the level and prints a new one based off the level variable
     private void updateLevel(){
         levelContainer.removeAllViews();
         printLevel(level); //Prints the generated level
+    }
+
+    //Movements
+    
+    private void move(){
+        level[1][characterIndex] = 0;
+        characterIndex++; //moves the player
+        updateGame();
+        if(playerAlive) //draws the player if hes alive
+            level[1][characterIndex] = 4;
+
+        updateLevel();
+    }
+
+    private void jump(){
+        if(level[0][characterIndex] == 2){
+            level[0][characterIndex] = 0;
+            keys--;
+        }
+        updateGame();
+        updateLevel();
+
+    }
+
+
+    private void jumpOver(){
+        //collects any airborne keys
+        if(level[0][characterIndex] == 2){
+            level[0][characterIndex] = 0;
+            keys--;
+        }
+
+        level[1][characterIndex] = 0;
+        characterIndex++; //moves the player
+
+        //collects any airborne keys
+        if(level[0][characterIndex] == 2){
+            level[0][characterIndex] = 0;
+            keys--;
+        }
+
+        characterIndex++; //moves the player
+
+        //collects any airborne keys
+        if(level[0][characterIndex] == 2){
+            level[0][characterIndex] = 0;
+            keys--;
+        }
+
+        updateGame();
+
+        if(playerAlive) //draws the player if hes alive
+            level[1][characterIndex] = 4;
+
+        updateLevel();
     }
 
     //onClicks
@@ -191,66 +247,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Moves the player 1 block over
-    public void move(View view){
+    public void moveButton(View view){
         if(level == null || !playerAlive) //Ensures that the level is generated and the player is alive
             return;
 
-        level[1][characterIndex] = 0;
-        characterIndex++; //moves the player
-        updateGame();
-        if(playerAlive) //draws the player if hes alive
-            level[1][characterIndex] = 4;
 
-        updateLevel();
     }
 
     //Grabs a key if the player is under one
-    public void jump(View view){
+    public void jumpButton(View view){
         if(level == null || !playerAlive) //Ensures that the level is generated and the player is alive
             return;
 
-        if(level[0][characterIndex] == 2){
-            level[0][characterIndex] = 0;
-            keys--;
-        }
-        updateGame();
-        updateLevel();
+
     }
 
     //Jumps over 2 blocks
-    public void jumpOver(View view){
+    public void jumpOverButton(View view){
         if(level == null || !playerAlive) //Ensures that the level is generated and the player is alive
             return;
 
-        //collects any airborne keys
-        if(level[0][characterIndex] == 2){
-            level[0][characterIndex] = 0;
-            keys--;
-        }
 
-        level[1][characterIndex] = 0;
-        characterIndex++; //moves the player
-
-        //collects any airborne keys
-        if(level[0][characterIndex] == 2){
-            level[0][characterIndex] = 0;
-            keys--;
-        }
-
-        characterIndex++; //moves the player
-
-        //collects any airborne keys
-        if(level[0][characterIndex] == 2){
-            level[0][characterIndex] = 0;
-            keys--;
-        }
-
-        updateGame();
-
-        if(playerAlive) //draws the player if hes alive
-            level[1][characterIndex] = 4;
-
-        updateLevel();
     }
 
 
