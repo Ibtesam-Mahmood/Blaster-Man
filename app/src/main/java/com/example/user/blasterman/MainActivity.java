@@ -45,10 +45,34 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Prints the level onto the screen
+    /*
+    0 - nothing
+    1 - red
+     */
+    private void printLevel(int[][] level){
 
-    private void printLevel(){
+        for(int i = 0; i < level.length; i++){
 
+            for(int j = 0; j < level[i].length; j++){
+
+                int blockType = level[i][j]; //Obtains the blocktype from the level layout
+
+                DrawSquare block = new DrawSquare(this, 100 + (50*j), 500, 50, 50);
+
+                if(blockType == 1) //Brick
+                    block.setColor(Color.RED);
+                else //Goes to the next loop if the block isn't defined
+                    continue;
+
+                levelContainer.addView(block); //Adds the block to the screen
+
+            }
+        }
     }
+
+
+    
 
 
 

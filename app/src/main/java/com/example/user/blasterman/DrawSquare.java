@@ -58,4 +58,8 @@ public class DrawSquare extends View {
         paint.setStrokeWidth(3);
         canvas.drawRect(x, y, x+w, y+h, paint);
     }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
 }
