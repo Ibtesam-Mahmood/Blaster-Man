@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         int[][] level;
 
         Random r = new Random();
-        int width = r.nextInt(15) + 11; //Defines a random width for the level b/w 15-25
+        int width = r.nextInt(15) + 21; //Defines a random width for the level b/w 15-35
 
         level =  new int[3][width];
 
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
                 int blockType = level[i][j]; //Obtains the blocktype from the level layout
 
-                DrawSquare block = new DrawSquare(this, 100 + (55*j), 100 + (55*i), 50, 50);
+                DrawSquare block = new DrawSquare(this, 100 + (33*j), 100 + (33*i), 30, 30);
 
                 if(blockType == 1) //Brick
                     block.setColor(Color.RED);
