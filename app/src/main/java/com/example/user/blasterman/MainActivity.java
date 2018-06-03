@@ -168,6 +168,18 @@ public class MainActivity extends AppCompatActivity {
         updateLevel();
     }
 
+    //Grabs a key if the player is under one
+    public void jump(View view){
+        if(level == null) //Ensures that the level is generated
+            return;
+
+        if(level[0][characterIndex] == 2){
+            level[0][characterIndex] = 0;
+            keys--;
+        }
+        updateLevel();
+    }
+
 
 
 
