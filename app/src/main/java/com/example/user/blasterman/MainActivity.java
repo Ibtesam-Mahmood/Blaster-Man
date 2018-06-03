@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         level[1][0] = 4; //Generates blaster man
         level[1][width-1] = 5; //Generates door
 
+        //Pre level generation block setting
         for (int i = 1; i < width - 1; i++){
 
             // Sets the base blocks and holes
@@ -62,6 +63,20 @@ public class MainActivity extends AppCompatActivity {
 
             if(randomizer < 0.15 && level[0][i-1] != 2) //Generates keys 15% of the time ensures no double keys
                 level[0][i] = 2;
+
+        }
+
+        //Post level generation block setting
+        for(int i = 1; i < width - 1; i++){
+
+            //Sets enemies
+            double randomizer =  Math.random();
+            boolean jumpAbility = level[1][i-1] != 3 && level[2][i-1] != 0 && level[2][i+1] != 0; //Ensures the player can jump over
+
+            //Generates enemies 10% of the time ensures no double keys along with enemies over holes
+            //Ensuring the player can jump over the enemy
+            if(randomizer < 0.3 && level[2][i] != 0 && jumpAbility)
+                level[1][i] = 3;
 
         }
 
