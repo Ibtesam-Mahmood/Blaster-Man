@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean playerAlive;
 
+    private ArrayList<String> moveList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Defines screen layout that contains the level
         levelContainer = findViewById(R.id.levelContainer);
+
+        //defines moveList
+        moveList = new ArrayList<>();
 
     }
 
