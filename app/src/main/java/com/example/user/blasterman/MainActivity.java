@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.Random;
 
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
                 int blockType = level[i][j]; //Obtains the blocktype from the level layout
 
-                DrawSquare block = new DrawSquare(this, 100 + (50*j), 500, 50, 50);
+                DrawSquare block = new DrawSquare(this, 100 + (50*j), 600, 50, 50);
 
                 if(blockType == 1) //Brick
                     block.setColor(Color.RED);
@@ -71,8 +72,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void generateButton(View view){
 
-    
+        printLevel( generateLevel() ); //Prints the generated level
+
+    }
+
 
 
 
