@@ -8,4 +8,14 @@
     tools:context="com.example.user.blasterman.MainActivity"
     android:id="@+id/screen">
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="558dp"
+        android:layout_height="161dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/levelContainer">
+
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
