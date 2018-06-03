@@ -211,6 +211,42 @@ public class MainActivity extends AppCompatActivity {
         updateLevel();
     }
 
+    //Jumps over 2 blocks
+    public void jumpOver(View view){
+        if(level == null || !playerAlive) //Ensures that the level is generated and the player is alive
+            return;
+
+        //collects any airborne keys
+        if(level[0][characterIndex] == 2){
+            level[0][characterIndex] = 0;
+            keys--;
+        }
+
+        level[1][characterIndex] = 0;
+        characterIndex++; //moves the player
+
+        //collects any airborne keys
+        if(level[0][characterIndex] == 2){
+            level[0][characterIndex] = 0;
+            keys--;
+        }
+
+        characterIndex++; //moves the player
+
+        //collects any airborne keys
+        if(level[0][characterIndex] == 2){
+            level[0][characterIndex] = 0;
+            keys--;
+        }
+
+        updateGame();
+
+        if(playerAlive) //draws the player if hes alive
+            level[1][characterIndex] = 4;
+
+        updateLevel();
+    }
+
 
 
 
