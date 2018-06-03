@@ -15,6 +15,11 @@ public class MainActivity extends AppCompatActivity {
 
     private int[][] level;
 
+    private int characterIndex;
+    private int keys;
+    private int size;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,18 +45,21 @@ public class MainActivity extends AppCompatActivity {
         int[][] level;
 
         Random r = new Random();
-        int width = r.nextInt(15) + 21; //Defines a random width for the level b/w 15-35
+        size = r.nextInt(15) + 21; //Defines a random width for the level b/w 15-35
 
-        level =  new int[3][width];
+        level =  new int[3][size];
 
+        //Level base values
+        characterIndex = 0;
+        keys = 0;
 
-        level[2][0] = 1; // Ensures that there is a first block
-        level[2][width-1] = 1; //Ensures there is a last block
+        level[2][characterIndex] = 1; // Ensures that there is a first block
+        level[2][size-1] = 1; //Ensures there is a last block
         level[1][0] = 4; //Generates blaster man
-        level[1][width-1] = 5; //Generates door
+        level[1][size-1] = 5; //Generates door
 
         //Pre level generation block setting
-        for (int i = 1; i < width - 1; i++){
+        for (int i = 1; i < size - 1; i++){
 
             // Sets the base blocks and holes
             double randomizer = Math.random();
@@ -64,13 +72,15 @@ public class MainActivity extends AppCompatActivity {
             // Sets the keys
             randomizer = Math.random();
 
-            if(randomizer < 0.15 && level[0][i-1] != 2) //Generates keys 15% of the time ensures no double keys
+            if(randomizer < 0.15 && level[0][i-1] != 2) { //Generates keys 15% of the time ensures no double keys
                 level[0][i] = 2;
+                keys++;
+            }
 
         }
 
         //Post level generation block setting
-        for(int i = 1; i < width - 1; i++){
+        for(int i = 1; i < size - 1; i++){
 
             //Sets enemies
             double randomizer =  Math.random();
@@ -128,13 +138,36 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void generateButton(View view){
-
+    //Clears the level and prints a new one based off the level variable
+    private void updateLevel(){
         levelContainer.removeAllViews();
-        level = generateLevel();
-        printLevel(level); //Prints the generated level
 
+        //sets the door to open if all keys are collected
+        if(keys == 0)
+            level[1][size-1] = 6;
+
+        printLevel(level); //Prints the generated level
     }
+
+    //onClicks
+
+    //Generates a level and prints it
+    public void generateButton(View view){
+        level = generateLevel();
+        updateLevel();
+    }
+
+    //Moves the player 1 block over
+    public void move(View view){
+        if(level == null) //Ensures that the level is generated
+            return;
+
+        level[1][characterIndex] = 0;
+        characterIndex++;
+        level[1][characterIndex] = 4;
+        updateLevel();
+    }
+
 
 
 
