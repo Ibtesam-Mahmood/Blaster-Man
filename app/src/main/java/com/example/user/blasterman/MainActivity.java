@@ -4,8 +4,8 @@ import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private int keys;
     private int size;
 
+    private boolean playerAlive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         //Level base values
         characterIndex = 0;
         keys = 0;
+        playerAlive = true;
 
         level[2][characterIndex] = 1; // Ensures that there is a first block
         level[2][size-1] = 1; //Ensures there is a last block
@@ -138,14 +140,39 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //Clears the level and prints a new one based off the level variable
-    private void updateLevel(){
-        levelContainer.removeAllViews();
+    //Ends the game
+    //if win is true the player wins the game
+    //if win is false the player loses
+    private void gameOver(boolean win){
+        playerAlive = false;
+        if(win)
+            Toast.makeText(this, "YOU WIN!", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(this, "GAME OVER", Toast.LENGTH_LONG).show();
+    }
+
+    //manages game interactions
+    private void updateGame(){
+        if(level[2][characterIndex] == 0) //If the player fell into a hole
+            gameOver(false);
+
+        if(level[1][characterIndex] == 3) //Player came into contact with an enemy
+            gameOver(false);
+
+        if(level[1][characterIndex] == 5) //Player did not collect all the keys
+            gameOver(false);
+
+        if(level[1][characterIndex] == 6) //Player came to the open door
+            gameOver(true);
 
         //sets the door to open if all keys are collected
         if(keys == 0)
             level[1][size-1] = 6;
+    }
 
+    //Clears the level and prints a new one based off the level variable
+    private void updateLevel(){
+        levelContainer.removeAllViews();
         printLevel(level); //Prints the generated level
     }
 
@@ -159,24 +186,28 @@ public class MainActivity extends AppCompatActivity {
 
     //Moves the player 1 block over
     public void move(View view){
-        if(level == null) //Ensures that the level is generated
+        if(level == null || !playerAlive) //Ensures that the level is generated and the player is alive
             return;
 
         level[1][characterIndex] = 0;
-        characterIndex++;
-        level[1][characterIndex] = 4;
+        characterIndex++; //moves the player
+        updateGame();
+        if(playerAlive) //draws the player if hes alive
+            level[1][characterIndex] = 4;
+
         updateLevel();
     }
 
     //Grabs a key if the player is under one
     public void jump(View view){
-        if(level == null) //Ensures that the level is generated
+        if(level == null || !playerAlive) //Ensures that the level is generated and the player is alive
             return;
 
         if(level[0][characterIndex] == 2){
             level[0][characterIndex] = 0;
             keys--;
         }
+        updateGame();
         updateLevel();
     }
 
