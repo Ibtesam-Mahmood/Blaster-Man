@@ -26,28 +26,35 @@ public class MainActivity extends AppCompatActivity {
     /*
     0 - nothing
     1 - block
+    2 - key
+    3 - enemy
+    4 - blaster man
+    5 - door
      */
     private int[][] generateLevel(){
 
         int[][] level;
 
         Random r = new Random();
-        int width = r.nextInt(10) + 11; //Defines a random width for the level b/w 10-20
+        int width = r.nextInt(15) + 21; //Defines a random width for the level b/w 15-35
 
         level =  new int[3][width];
 
 
         level[2][0] = 1; // Ensures that there is a first block
+        level[2][width-1] = 1; //Ensures there is a last block
+        level[1][0] = 4; //Generates blaster man
+        level[1][width-1] = 5; //Generates door
 
-        // Sets the base blocks
-        for (int i = 1; i < width; i++){
+        // Sets the base blocks and holes
+        for (int i = 1; i <= width; i++){
 
             double randomizer = Math.random();
 
-            if(randomizer > 0.25)
-                level[2][i] = 1;
-            else
+            if(level[2][i-1] != 0 && randomizer < 0.25) //Create a hole 25% of them time ensuring there are no double holes
                 level[2][i] = 0;
+            else //Create a block 75% of the time
+                level[2][i] = 1;
 
         }
 
@@ -58,7 +65,11 @@ public class MainActivity extends AppCompatActivity {
     //Prints the level onto the screen
     /*
     0 - nothing
-    1 - red
+    1 - red - block
+    2 - yellow - key
+    3 - green - enemy
+    4 - cyan - blaster man
+    5 - magenta - door
      */
     private void printLevel(int[][] level){
 
@@ -72,6 +83,14 @@ public class MainActivity extends AppCompatActivity {
 
                 if(blockType == 1) //Brick
                     block.setColor(Color.RED);
+                else if(blockType == 2)
+                    block.setColor(Color.YELLOW);
+                else if(blockType == 3)
+                    block.setColor(Color.GREEN);
+                else if(blockType == 4)
+                    block.setColor(Color.CYAN);
+                else if(blockType == 5)
+                    block.setColor(Color.MAGENTA);
                 else //Goes to the next loop if the block isn't defined
                     continue;
 
