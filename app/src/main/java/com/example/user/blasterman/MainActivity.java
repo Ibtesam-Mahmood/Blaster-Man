@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import java.util.Random;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         int[][] level;
 
         Random r = new Random();
-        int width = r.nextInt(15) + 21; //Defines a random width for the level b/w 15-35
+        int width = r.nextInt(15) + 11; //Defines a random width for the level b/w 15-25
 
         level =  new int[3][width];
 
@@ -46,15 +47,21 @@ public class MainActivity extends AppCompatActivity {
         level[1][0] = 4; //Generates blaster man
         level[1][width-1] = 5; //Generates door
 
-        // Sets the base blocks and holes
         for (int i = 1; i < width - 1; i++){
 
+            // Sets the base blocks and holes
             double randomizer = Math.random();
 
             if(level[2][i-1] != 0 && randomizer < 0.25) //Create a hole 25% of them time ensuring there are no double holes
                 level[2][i] = 0;
             else //Create a block 75% of the time
                 level[2][i] = 1;
+
+            // Sets the keys
+            randomizer = Math.random();
+
+            if(randomizer < 0.15 && level[0][i-1] != 2) //Generates keys 15% of the time ensures no double keys
+                level[0][i] = 2;
 
         }
 
