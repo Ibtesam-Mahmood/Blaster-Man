@@ -4,7 +4,11 @@ import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -13,6 +17,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private ConstraintLayout levelContainer;
+    private LinearLayout moveContainer;
 
     private int[][] level;
 
@@ -32,7 +37,10 @@ public class MainActivity extends AppCompatActivity {
         //Defines screen layout that contains the level
         levelContainer = findViewById(R.id.levelContainer);
 
-        //defines moveList
+        //Defines the layout that contains the moves
+        //moveContainer = findViewById(R.id.moveContainer);
+
+        //Defines moveList
         moveList = new ArrayList<>();
 
     }
@@ -157,6 +165,34 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "GAME OVER", Toast.LENGTH_LONG).show();
     }
 
+    private void addMove(String move){
+//        TextView moveName = new TextView(this);
+//        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
+//                ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.WRAP_CONTENT
+//        );
+//        moveName.setLayoutParams(params);
+//        moveName.setText(move);
+//        moveName.setTextSize(18);
+//        moveName.setX(moveContainer.getX());
+
+        moveList.add(move);
+        TextView moves = findViewById(R.id.moves);
+        moves.setText( moves.getText() + "  " + move);
+
+//        if(move == "M")
+//            moveName.setTextColor(Color.RED);
+//        else if(move == "J")
+//            moveName.setTextColor(Color.BLUE);
+//        else if(move == "JO")
+//            moveName.setTextColor(Color.GREEN);
+//
+//        moveContainer.addView(moveName);
+
+    }
+
+    //Level managers
+
     //manages game interactions
     private void updateGame(){
         //sets the door to open if all keys are collected
@@ -184,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Movements
-    
+
     private void move(){
         level[1][characterIndex] = 0;
         characterIndex++; //moves the player
@@ -251,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
         if(level == null || !playerAlive) //Ensures that the level is generated and the player is alive
             return;
 
-
+        addMove("M");
     }
 
     //Grabs a key if the player is under one
@@ -259,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
         if(level == null || !playerAlive) //Ensures that the level is generated and the player is alive
             return;
 
-
+        addMove("J");
     }
 
     //Jumps over 2 blocks
@@ -267,10 +303,37 @@ public class MainActivity extends AppCompatActivity {
         if(level == null || !playerAlive) //Ensures that the level is generated and the player is alive
             return;
 
-
+        addMove("JO");
     }
 
+    //Clears the move list
+    public void clear(View view){
+        ((TextView) findViewById(R.id.moves)).setText("");
+        moveList = new ArrayList<>();
+    }
 
+    //Runs the move list
+    public void run(View view) {
+        for(int i = 0; i < moveList.size(); i++){
+
+            String move = moveList.get(i);
+
+            if(move == "M")
+                move();
+            else if(move == "J")
+                jump();
+            else if(move == "JO")
+                jumpOver();
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
 
 
 

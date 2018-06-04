@@ -82,8 +82,32 @@
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
+        android:onClick="run"
+        android:text="Run"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moveLst" />
+
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
+        android:onClick="clear"
         android:text="Clear"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/moveLst" />
+
+    <TextView
+        android:id="@+id/moves"
+        android:layout_width="362dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="32dp"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/moveLst"
+        app:layout_constraintTop_toBottomOf="@+id/generate" />
+
 </android.support.constraint.ConstraintLayout>
