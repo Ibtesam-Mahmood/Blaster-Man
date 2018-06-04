@@ -192,6 +192,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //clears the move list
+    private void clearList(){
+
+        ((TextView) findViewById(R.id.moves)).setText("");
+        moveList = new ArrayList<>();
+
+    }
+
     //Level managers
 
     //manages game interactions
@@ -243,6 +251,9 @@ public class MainActivity extends AppCompatActivity {
                     excecuteMove(moveNum+1);
                 }
             }, 500);
+        }
+        else{ //if the final block was reached
+            clearList();
         }
     }
 
@@ -333,8 +344,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Clears the move list
     public void clear(View view){
-        ((TextView) findViewById(R.id.moves)).setText("");
-        moveList = new ArrayList<>();
+        clearList();
     }
 
     //Runs the move list
