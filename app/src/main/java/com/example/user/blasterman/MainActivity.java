@@ -1,6 +1,7 @@
 package com.example.user.blasterman;
 
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -221,6 +222,30 @@ public class MainActivity extends AppCompatActivity {
 
     //Movements
 
+    // Excecutes the moves recursively after a delay
+    private void excecuteMove(final int moveNum){
+
+        String move = moveList.get(moveNum);
+
+        if(move == "M")
+            move();
+        else if(move == "J")
+            jump();
+        else if(move == "JO")
+            jumpOver();
+
+        if(moveNum+1 != moveList.size()) { //runs the next move if the code hasnt reached the end of the list
+            Handler delay =  new Handler();
+            //Delays for 500 ms before running the next move
+            delay.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    excecuteMove(moveNum+1);
+                }
+            }, 500);
+        }
+    }
+
     private void move(){
         level[1][characterIndex] = 0;
         characterIndex++; //moves the player
@@ -314,24 +339,10 @@ public class MainActivity extends AppCompatActivity {
 
     //Runs the move list
     public void run(View view) {
-        for(int i = 0; i < moveList.size(); i++){
+        if(moveList.size() == 0) //Breaks if there are no moves in the moveList
+            return;
 
-            String move = moveList.get(i);
-
-            if(move == "M")
-                move();
-            else if(move == "J")
-                jump();
-            else if(move == "JO")
-                jumpOver();
-
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-        }
+        excecuteMove(0);
 
     }
 
